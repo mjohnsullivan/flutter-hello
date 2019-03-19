@@ -156,12 +156,13 @@ class PictureDetails {
 
   const PictureDetails(this.picture, this.width, this.height);
 
-  Image toImage() {
+  Future<Image> toImage() {
     return picture.toImage(width, height);
   }
 
   Future<Uint8List> toPNG() async {
-    return (await toImage().toByteData(format: ImageByteFormat.png))
+    final image = await toImage();
+    return (await image.toByteData(format: ImageByteFormat.png))
         .buffer
         .asUint8List();
   }
